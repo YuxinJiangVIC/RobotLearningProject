@@ -1,6 +1,6 @@
 # RobotLearningProject
 RobotLearning
 
-First folder is for sentiment analysis
+Files is for sentiment analysis
 
-Second folder is for self-supervised learning
+Folder is for self-supervised learning
