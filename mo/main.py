@@ -19,14 +19,14 @@ def train(net, data_loader, train_optimizer):
         pos_1, pos_2 = pos_1.cuda(non_blocking=True), pos_2.cuda(non_blocking=True)
         feature_1, out_1 = net(pos_1)
         feature_2, out_2 = net(pos_2)
-        # [2*B, D]
+
         out = torch.cat([out_1, out_2], dim=0)
-        # [2*B, 2*B]
+       
         sim_matrix = torch.exp(torch.mm(out, out.t().contiguous()) / temperature)
         mask = (torch.ones_like(sim_matrix) - torch.eye(2 * batch_size, device=sim_matrix.device)).bool()
-        # [2*B, 2*B-1]
+  
         sim_matrix = sim_matrix.masked_select(mask).view(2 * batch_size, -1)
-        #去掉和自己的similarity
+       
         # compute loss
         pos_sim = torch.exp(torch.sum(out_1 * out_2, dim=-1) / temperature)
         # [2*B]
@@ -43,7 +43,7 @@ def train(net, data_loader, train_optimizer):
     return total_loss / total_num
 
 
-# test for one epoch, use weighted knn to find the most similar images' label to assign the test image
+# test one epoch, use weighted knn to find the most similar images' label to assign the test image
 def test(net, memory_data_loader, test_data_loader):
     net.eval()
     total_top1, total_top5, total_num, feature_bank = 0.0, 0.0, 0, []
