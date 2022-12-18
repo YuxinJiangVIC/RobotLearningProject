@@ -3,4 +3,4 @@ RobotLearning
 
 File is for sentiment analysis
 
-Folder is for self-supervised learning
+The remaining files are slef-supervised learning analysis 
